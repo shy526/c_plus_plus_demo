@@ -1,4 +1,5 @@
-#include <iostream>
+
+#include <memory>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,9 +7,12 @@
 #include "queryText/QueryResult.h"
 #include "copy/CopyConstructor.h"
 #include "copy/CopyOperator.h"
+#include "oo/Basket.h"
+#include "queryText/Query.h"
 
 using std::ifstream;
 using std::string;
+using std::make_shared;
 /**
  * 查询
  * @return
@@ -42,7 +46,30 @@ void copyTest2() {
     std::cout<<cs.getSize()<<std::endl;
     std::cout<<cs1.getSize()<<std::endl;
 }
+/**
+ * 篮子测试
+ */
+void basketTest(){
+    Basket bs;
+    bs.addItem(make_shared<Quote>("111",45));
+    bs.addItem(make_shared<Quote>("111",45));
+    bs.addItem(make_shared<Quote>("222",2));
+    bs.addItem(make_shared<Quote>("2222",45));
+    bs.total_receipt(std::cout);
+}
+
+void ooQueryText(){
+    string filePath="./../data/queryTextData.txt";
+    ifstream file(filePath);
+    QueryText text(file);
+    Query q("no");
+    Query t("is");
+    const Query &query = q & t;
+    auto result = query.eval(text);
+    print(result);
+
+}
 int main() {
-    copyTest2();
+    ooQueryText();
     return 0;
 }

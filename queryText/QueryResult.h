@@ -20,8 +20,11 @@ public:
 
     QueryResult( std::shared_ptr<std::set<line_on>> &s,
                  std::shared_ptr<std::vector<std::string>> &q, std::string c):indexes(s),file(q),key(c){
-
     };
+
+    const std::shared_ptr<std::set<line_on>> &getIndexes() const;
+
+    const std::shared_ptr<std::vector<std::string>> &getFile() const;
 
 private:
     /**
@@ -33,6 +36,8 @@ private:
      */
     std::shared_ptr<std::vector<std::string>> file;
     std::string key;
+
+
 };
 void print(const QueryResult&);
 #endif //C_DEMO_QUERYRESULT_H

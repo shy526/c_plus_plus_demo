@@ -56,7 +56,7 @@ QueryResult QueryText::query(const std::string &key) {
     static std::shared_ptr<set<line_on >> nodata(new set<line_on >);
     auto result=this->indexes.find(cleanup_str(key));
     if (result == this->indexes.end()){
-        return QueryResult(nodata,this->lines,key);
+        return   QueryResult(nodata,this->lines,key);
     }
     return QueryResult(result->second,this->lines,key);
 
@@ -67,7 +67,15 @@ void print(const QueryResult&qr){
 
     cout<<"--------------------"<<"查询:"<<qr.key<<"查询结果"<<"----------------------"<<endl;
    std::for_each(item->begin(),item->end(),[qr](int v){
-      cout << *(qr.file->begin() + v) <<endl;
+      cout<<v<<":"<< *(qr.file->begin() + v) <<endl;
    });
+}
+
+const std::shared_ptr<set<QueryResult::line_on>> &QueryResult::getIndexes() const {
+    return indexes;
+}
+
+const std::shared_ptr<std::vector<string>> &QueryResult::getFile() const {
+    return file;
 }
 
